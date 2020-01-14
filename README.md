@@ -68,4 +68,4 @@ q = [q0, q1, q2, q3, q4]
 
 ---
 
-With thanks to [Darcy Murphy](https://github.com/mrDarcyMurphy).
+With thanks to [Jacob Rus](https://observablehq.com/@jrus), [Nadieh Bremer](https://www.visualcinnamon.com), [Mike Bostock](https://bost.ocks.org/mike/) and [Darcy Murphy](https://github.com/mrDarcyMurphy).
