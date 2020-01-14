@@ -63,7 +63,13 @@ q = [q0, q1, q2, q3, q4]
 
 [ x, y, z ] = f(a)B, where *f(a)* is a scalar encoding the angle, and B a unit vector in cartesian coordinates.
 
-*Note:* while there are many ways to encode the angle, we might settle on the default *f(a) = tan(a/4)*. The current code uses f(a) = a.
+*Note:* there are many ways to encode the angle, we have to settle on a default. The useful functions *f(a)* are:
+- *tan(a/4)*: stereographic, ‘Modified Rodrigues Parameters’.
+- *tan(a/2)*: gnomonic, ‘Rodrigues Parameters’, ‘Gibbs vector’.
+- *a*: equidistant, logarithm vector.
+- (vector part of the) unit quaternion: Euler angles.
+
+The current code uses *f(a) = a* (it’s still subject to change).
 
 
 ---
