@@ -5,8 +5,9 @@ import {
   atan2,
   degrees,
   hypot,
+  pi,
   radians,
-  sqrt,
+  sqrt
 } from "./math.js";
 import { Cos as cos, Sin as sin} from "./cos.js";
 import { cartesian, spherical } from "./cartesian.js";
@@ -30,7 +31,7 @@ function versor_toAxisAngle(q) {
       abs(q[0]) < 0.5
         ? 2 * acos(q[0])
         : q[0] < 0
-        ? 2 * Math.PI - 2 * asin(s)
+        ? 2 * pi - 2 * asin(s)
         : 2 * asin(s);
   if (!s) return { axis: [0, 90], angle: 0 };
   const s1 = 1 / s;

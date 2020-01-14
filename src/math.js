@@ -12,7 +12,7 @@ export const quarterPi = pi / 4;
 export const tau = pi * 2;
 
 export const degrees = 180 / pi;
-export const radians = pi / 180;
+export const radians = 1 / degrees;
 
 export function acos(x) {
   return x > 1 ? 0 : x < -1 ? pi : Math.acos(x);

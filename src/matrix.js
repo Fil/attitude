@@ -1,6 +1,6 @@
 import { versor_normalize } from "./versor.js";
 import { cartesian, spherical } from "./cartesian.js";
-import { asin, atan2, degrees, radians } from "./math.js";
+import { asin, atan2, degrees, radians, sqrt } from "./math.js";
 import { Cos as cos, Sin as sin} from "./cos.js";
 
 function transpose([[r11, r12, r13], [r21, r22, r23], [r31, r32, r33]]) {
@@ -53,7 +53,7 @@ function versor_fromRotationMatrix(r) {
   }
 
   function N(a1, a2, a3) {
-    return Math.sqrt(1 + a1 + a2 + a3);
+    return sqrt(1 + a1 + a2 + a3);
   }
 }
 
