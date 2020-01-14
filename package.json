@@ -1,0 +1,41 @@
+{
+  "name": "attitude",
+  "version": "0.0.1",
+  "description": "Spherical Rotations",
+  "keywords": [],
+  "license": "MIT",
+  "main": "dist/attitude.js",
+  "unpkg": "dist/attitude.min.js",
+  "jsdelivr": "dist/attitude.min.js",
+  "module": "index",
+  "jsnext:main": "index",
+  "homepage": "https://github.com/Fil/attitude",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fil/attitude.git"
+  },
+  "author": {
+    "name": "Philippe Rivière",
+    "url": "https://github.com/Fil"
+  },
+  "scripts": {
+    "pretest": "rollup -c",
+    "test": "tape -r esm 'test/**/*-test.js' && eslint src",
+    "prepublishOnly": "rm -rf dist && yarn test",
+    "postpublish": "git push && git push --tags && cd ../d3.github.com && git pull && cp ../${npm_package_name}/dist/${npm_package_name}.js ${npm_package_name}.v${npm_package_version%%.*}.js && cp ../${npm_package_name}/dist/${npm_package_name}.min.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git add ${npm_package_name}.v${npm_package_version%%.*}.js ${npm_package_name}.v${npm_package_version%%.*}.min.js && git commit -m \"${npm_package_name} ${npm_package_version}\" && git push && cd - && zip -j dist/${npm_package_name}.zip -- LICENSE README.md dist/${npm_package_name}.js dist/${npm_package_name}.min.js"
+  },
+  "dependencies": {},
+  "sideEffects": false,
+  "devDependencies": {
+    "d3-geo": "1",
+    "eslint": "6",
+    "eslint-plugin-es5": "1",
+    "esm": "3",
+    "package-preamble": "0.1",
+    "rollup": "1",
+    "rollup-plugin-terser": "5",
+    "tape": "4",
+    "terser": "^3.8.2",
+    "versor": "0.1"
+  }
+}
