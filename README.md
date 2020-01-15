@@ -26,7 +26,7 @@ If you use NPM, `npm install attitude`. Otherwise, download the [latest release]
 <script src="https://unpkg.com/attitude"></script>
 <script>
 
-const attitude = attitude.attitude();
+const attitude = attitude();
 
 </script>
 ```
