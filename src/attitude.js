@@ -17,7 +17,7 @@ import {
   vectorGnomonic,
   vectorStereographic
 } from "./vector.js";
-import { acos, atan, degrees, radians, sqrt, tan } from "./math.js";
+import { acos, degrees, radians, sqrt } from "./math.js";
 import {
   cartesian,
   spherical,

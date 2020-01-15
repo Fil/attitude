@@ -1,3 +1,5 @@
+import { atan, tan } from "./math.js";
+
 export const vectorEquidistant = {
   forward: a => a,
   inverse: a => a
