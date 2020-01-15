@@ -15,7 +15,7 @@ import {
 
 const tape = require("tape"),
   versor = require("versor"),
-  { attitude } = require("../");
+  attitude = require("../");
 
 require("./inDelta");
 

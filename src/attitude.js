@@ -20,7 +20,7 @@ import {
   cartesianCross as cross
 } from "./cartesian.js";
 
-export function attitude(init = {}) {
+export default function attitude(init = {}) {
   let axis, angle, q, matrix;
 
   function rotate(point) {
