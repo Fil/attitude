@@ -69,7 +69,7 @@ q = [q0, q1, q2, q3, q4]
 - *a*: equidistant, logarithm vector.
 - (vector part of the) unit quaternion: Euler angles.
 
-The current code uses *f(a) = a* (it’s still subject to change).
+Defaults to the stereographic vector representation.
 
 
 ---

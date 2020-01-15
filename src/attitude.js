@@ -12,7 +12,7 @@ import {
   versor_fromEulerAngles,
   versor_toEulerAngles
 } from "./versor.js";
-import { acos, degrees, radians, sqrt } from "./math.js";
+import { acos, atan, degrees, radians, sqrt, tan } from "./math.js";
 import {
   cartesian,
   spherical,
@@ -41,16 +41,16 @@ export default function attitude(init = {}) {
     return rotate;
   }
 
-  function get_vector() {
-    const n = angle * radians,
+  function get_vector(f) {
+    const n = f(angle * radians),
       v = cartesian(axis.map(d => d * radians));
     return v.map(d => d * n);
   }
-  function set_vector(v) {
+  function set_vector(v, f_1) {
     const n = sqrt(dot(v, v));
     set_axis_angle(
       spherical(v.map(d => d / n)).map(d => d * degrees),
-      n * degrees
+      f_1(n) * degrees
     );
     return rotate;
   }
@@ -58,7 +58,20 @@ export default function attitude(init = {}) {
   rotate.axis = _ => (_ === undefined ? axis : set_axis_angle(_, angle));
   rotate.angle = _ => (_ === undefined ? angle : set_axis_angle(axis, +_));
   rotate.versor = _ => (_ === undefined ? q : set_versor(versor_normalize(_)));
-  rotate.vector = _ => (_ === undefined ? get_vector() : set_vector(_));
+
+  rotate.vectorGnomonic = _ =>
+    _ === undefined
+      ? get_vector(vectorGnomonic.forward)
+      : set_vector(_, vectorGnomonic.inverse);
+  rotate.vectorStereographic = _ =>
+    _ === undefined
+      ? get_vector(vectorStereographic.forward)
+      : set_vector(_, vectorStereographic.inverse);
+  rotate.vectorEquidistant = _ =>
+    _ === undefined
+      ? get_vector(vectorEquidistant.forward)
+      : set_vector(_, vectorEquidistant.inverse);
+  rotate.vector = rotate.vectorStereographic;
 
   rotate.matrix = _ =>
     _ === undefined
@@ -126,3 +139,18 @@ function interpolateAttitude(a, b) {
   const c = b.compose(a.inverse());
   return t => (t === 1 ? b : !t ? a : c.power(t).compose(a));
 }
+
+const vectorEquidistant = {
+  forward: a => a,
+  inverse: a => a
+};
+
+const vectorStereographic = {
+  forward: a => tan(a / 4),
+  inverse: a => 4 * atan(a)
+};
+
+const vectorGnomonic = {
+  forward: a => tan(a / 2),
+  inverse: a => 2 * atan(a)
+};

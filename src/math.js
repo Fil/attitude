@@ -1,10 +1,12 @@
 export const abs = Math.abs;
+export const atan = Math.atan;
 export const atan2 = Math.atan2;
 export const cos = Math.cos;
 export const hypot = Math.hypot;
 export const sign = Math.sign;
 export const sin = Math.sin;
 export const sqrt = Math.sqrt;
+export const tan = Math.tan;
 
 export const pi = Math.PI;
 export const halfPi = pi / 2;

@@ -1,5 +1,6 @@
 import * as d3 from "d3-geo";
 import { Cos as cos, Sin as sin } from "../src/cos.js";
+import { pi } from "../src/math.js";
 import {
   versor_fromEulerAngles,
   versor_toEulerAngles,
@@ -455,12 +456,16 @@ tape("arc", t => {
 tape("vector", t => {
   const A = attitude()
     .axis([10, 20])
-    .angle(100);
-  t.inDelta(A.vector(), [
-    1.6151566245590976,
-    0.28479569097978136,
-    0.5969377609175828
-  ]);
+    .angle(180);
+  // default is stereographic: 180° gives a norm=1 vector
+  t.inDelta(A.vector(), [0.9254165783983233, 0.1631759111665348, 0.34202014332566866]);
+
+  // gnomonic: 90° gives a norm=1 vector
+  t.inDelta(attitude().angle(90).vectorGnomonic(), [0, 0, 1]);
+
+  // equidistant: 90° gives a norm = pi/2 vector
+  t.inDelta(attitude().angle(90).vectorEquidistant(), [0, 0, pi/2]);
+
   t.inDelta(
     attitude()
       .vector(A.vector())
@@ -469,9 +474,21 @@ tape("vector", t => {
   );
   t.inDelta(
     attitude()
-      .vector(A.vector())
+      .vectorEquidistant(A.vectorEquidistant())
       .angle(),
-    100
+    180
+  );
+  t.inDelta(
+    attitude()
+      .vectorGnomonic(A.vectorGnomonic())
+      .axis(),
+    [10, 20]
+  );
+  t.inDelta(
+    attitude()
+      .vectorStereographic(A.vectorStereographic())
+      .axis(),
+    [10, 20]
   );
   t.end();
 });
