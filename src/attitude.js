@@ -12,6 +12,11 @@ import {
   versor_fromEulerAngles,
   versor_toEulerAngles
 } from "./versor.js";
+import {
+  vectorEquidistant,
+  vectorGnomonic,
+  vectorStereographic
+} from "./vector.js";
 import { acos, atan, degrees, radians, sqrt, tan } from "./math.js";
 import {
   cartesian,
@@ -139,18 +144,3 @@ function interpolateAttitude(a, b) {
   const c = b.compose(a.inverse());
   return t => (t === 1 ? b : !t ? a : c.power(t).compose(a));
 }
-
-const vectorEquidistant = {
-  forward: a => a,
-  inverse: a => a
-};
-
-const vectorStereographic = {
-  forward: a => tan(a / 4),
-  inverse: a => 4 * atan(a)
-};
-
-const vectorGnomonic = {
-  forward: a => tan(a / 2),
-  inverse: a => 2 * atan(a)
-};
