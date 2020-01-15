@@ -9,8 +9,7 @@ import {
   radians,
   sqrt
 } from "./math.js";
-import { Cos as cos, Sin as sin} from "./cos.js";
-import { cartesian, spherical } from "./cartesian.js";
+import { cospi, sinpi, cartesiand, sphericald } from "./sinpi.js";
 
 const versor_normalize = q => {
   const n = hypot(...q);
@@ -36,7 +35,7 @@ function versor_toAxisAngle(q) {
   if (!s) return { axis: [0, 90], angle: 0 };
   const s1 = 1 / s;
   return {
-    axis: spherical([q[3] * s1, -q[2] * s1, q[1] * s1]).map(d => d * degrees),
+    axis: sphericald([q[3] * s1, -q[2] * s1, q[1] * s1]),
     angle: a * degrees
   };
 }
@@ -45,23 +44,20 @@ function versor_toAxisAngle(q) {
 // - axis as (lon, lat) in degrees
 // - angle in degrees
 function versor_fromAxisAngle(axis, angle) {
-  const c = cos((angle / 2) * radians),
-    s = sin((angle / 2) * radians),
-    d = cartesian(axis.map(d => d * radians));
+  const c = cospi(angle / 360),
+    s = sinpi(angle / 360),
+    d = cartesiand(axis);
   return [c, d[2] * s, -d[1] * s, d[0] * s];
 }
 
 // Euler 123 eq (297)
 function versor_fromEulerAngles([l, p, g]) {
-  l *= radians / 2;
-  p *= radians / 2;
-  g = ((g || 0) * radians) / 2;
-  const sl = sin(l),
-    cl = cos(l),
-    sp = sin(p),
-    cp = cos(p),
-    sg = sin(g),
-    cg = cos(g);
+  const sl = sinpi(l / 360),
+    cl = cospi(l / 360),
+    sp = sinpi(p / 360),
+    cp = cospi(p / 360),
+    sg = sinpi((g||0) / 360),
+    cg = cospi((g||0) / 360);
   return [
     cl * cp * cg + sl * sp * sg,
     sl * cp * cg - cl * sp * sg,

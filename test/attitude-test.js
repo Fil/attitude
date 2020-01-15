@@ -1,6 +1,5 @@
 import * as d3 from "d3-geo";
-import { Cos as cos, Sin as sin } from "../src/cos.js";
-import { pi } from "../src/math.js";
+import { cos, pi, sin } from "../src/math.js";
 import {
   versor_fromEulerAngles,
   versor_toEulerAngles,
@@ -276,19 +275,19 @@ tape(
 );
 
 tape("same versors as Mike's versor", t => {
-  t.deepEqual(
+  t.inDelta(
     versor([90, 0, 0]),
     attitude()
       .angles([90, 0, 0])
       .versor()
   );
-  t.deepEqual(
+  t.inDelta(
     versor([0, 90, 0]),
     attitude()
       .angles([0, 90, 0])
       .versor()
   );
-  t.deepEqual(
+  t.inDelta(
     versor([0, 0, 90]),
     attitude()
       .angles([0, 0, 90])

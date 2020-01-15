@@ -19,11 +19,10 @@ import {
 } from "./vector.js";
 import { acos, degrees, radians, sqrt } from "./math.js";
 import {
-  cartesian,
-  spherical,
-  cartesianDot as dot,
-  cartesianCross as cross
-} from "./cartesian.js";
+  cartesiand,
+  sphericald,
+  dot, cross
+} from "./sinpi.js";
 
 export default function attitude(init = {}) {
   let axis, angle, q, matrix;
@@ -48,13 +47,13 @@ export default function attitude(init = {}) {
 
   function get_vector(f) {
     const n = f(angle * radians),
-      v = cartesian(axis.map(d => d * radians));
+      v = cartesiand(axis);
     return v.map(d => d * n);
   }
   function set_vector(v, f_1) {
     const n = sqrt(dot(v, v));
     set_axis_angle(
-      spherical(v.map(d => d / n)).map(d => d * degrees),
+      sphericald(v.map(d => d / n)),
       f_1(n) * degrees
     );
     return rotate;
@@ -127,15 +126,15 @@ export default function attitude(init = {}) {
 
 // arc(A, B) returns an axis-angle that rotates A to B along a great circle (shortest path)
 function arc(A, B) {
-  const a = cartesian(A.map(d => d * radians)),
-    b = cartesian(B.map(d => d * radians));
+  const a = cartesiand(A),
+    b = cartesiand(B);
   const alpha = acos(dot(a, b)), // angle
     w = cross(a, b), // axis direction
     n = sqrt(dot(w, w)); // axis norm
   return !n
     ? { angle: dot(a, b) > 0 ? 0 : 180 }
     : {
-        axis: spherical([w[0] / n, w[1] / n, w[2] / n]).map(d => d * degrees),
+        axis: sphericald([w[0] / n, w[1] / n, w[2] / n]),
         angle: alpha * degrees
       };
 }

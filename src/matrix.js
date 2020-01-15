@@ -1,7 +1,6 @@
 import { versor_normalize } from "./versor.js";
-import { cartesian, spherical } from "./cartesian.js";
 import { asin, atan2, degrees, radians, sqrt } from "./math.js";
-import { Cos as cos, Sin as sin} from "./cos.js";
+import { cospi, sinpi, tanpi, cartesiand, sphericald } from "./sinpi.js";
 
 function transpose([[r11, r12, r13], [r21, r22, r23], [r31, r32, r33]]) {
   return [[r11, r21, r31], [r12, r22, r32], [r13, r23, r33]];
@@ -89,13 +88,13 @@ function MatrixRotatePoint(
   point
 ) {
   function rotator(point) {
-    const [x, y, z] = cartesian(point.map(d => d * radians));
+    const [x, y, z] = cartesiand(point);
     const product = [
       r11 * x + r21 * y + r31 * z,
       r12 * x + r22 * y + r32 * z,
       r13 * x + r23 * y + r33 * z
     ];
-    return spherical(product).map(d => d * degrees);
+    return sphericald(product);
   }
   return point ? rotator(point) : rotator;
 }
@@ -115,12 +114,12 @@ function RotationMatrix_toEulerAngles([
 // eq (184)
 // changes for precision by fil@rezo.net
 function RotationMatrix_fromAxisAngle(axis, angle) {
-  const [n1, n2, n3] = cartesian(axis.map(d => d * radians)),
+  const [n1, n2, n3] = cartesiand(axis),
     [n12, n22, n32] = [n1 * n1, n2 * n2, n3 * n3],
-    c = cos(angle * radians),
+    c = cospi(angle / 180),
     s2 = (1 - c) / 2, // cos(a/2)^2
     c2 = (1 + c) / 2, // sin(a/2)^2
-    sc = sin(angle * radians) / 2; // sin(a/2)cos(a/2)
+    sc = sinpi(angle / 180) / 2; // sin(a/2)cos(a/2)
 
   return [
     [
@@ -145,13 +144,13 @@ function RotationMatrix_fromAxisAngle(axis, angle) {
 // * the angles are given in the order of the rotation axis: top, left, front.
 // * we use the transpose matrix - eq (5).
 function RotationMatrix_fromEulerAngles([lambda, phi, gamma]) {
-  const [f, t, p] = [-gamma * radians, phi * radians, -lambda * radians];
-  const cf = cos(f),
-    sf = sin(f),
-    ct = cos(t),
-    st = sin(t),
-    cp = cos(p),
-    sp = sin(p);
+  const [f, t, p] = [-gamma, phi, -lambda];
+  const cf = cospi(f / 180),
+    sf = sinpi(f / 180),
+    ct = cospi(t / 180),
+    st = sinpi(t / 180),
+    cp = cospi(p / 180),
+    sp = sinpi(p / 180);
   return [
     [ct * cp, sf * st * cp - cf * sp, cf * st * cp + sf * sp],
     [ct * sp, sf * st * sp + cf * cp, cf * st * sp - sf * cp],
