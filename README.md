@@ -4,18 +4,15 @@ _Attitude: orientation of an object in space._
 
 A rotation of the sphere can be represented in various ways, such as:
 
-- [Euler Angles](#_euler-angles_)
-- [Axis-Angle](#_axis-angle_)
-- [Rotation Matrix](#_rotation-matrix_)
-- [Unit Quaternion](#_unit-quaternion_) (aka versor)
-- [Arc](#_arc_)
-- [Rotation Vector](#_rotation-vector_)
-
-Each of these representations has pros and cons, in terms of intuition, computational cost, precision, compacity, and so on. Their domains are also not exactly the same: for example an axis-angle notation can encode a rotation that does two turns (720°), but a rotation matrix cannot. Their applications are very different: versors allow to compose rotations, axis-angle ease the transition between two rotations, an arc describes a rotation as the shortest path between two points, rotation vectors are used for optimizations. Finally, matrices can be applied to point coordinates to, you know… rotate them.
-
-Two rotations are considered to be equivalent if they move all the points to the same destinations. There are many ways to convert a rotation from one representation to an equivalent rotation in a different representation.
+- [Euler Angles](#euler-angles)
+- [Axis-Angle](#axis-angle)
+- [Rotation Matrix](#rotation-matrix)
+- [Unit Quaternion](#unit-quaternion) (aka versor)
+- [Rotation Vector](#rotation-vector)
 
 The **attitude** module allows conversions and computations between all these representations.
+
+See https://observablehq.com/@fil/attitude for details.
 
 
 ## Installing
@@ -54,10 +51,6 @@ const attitude = attitude();
 ### Unit Quaternion
 
 q = [q0, q1, q2, q3, q4]
-
-### Arc
-
-(A, B) where A and B are spherical points [lon,lat], in degrees.
 
 ### Rotation Vector
 
