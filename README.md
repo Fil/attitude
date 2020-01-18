@@ -52,7 +52,7 @@ const attitude = attitude();
 
 ### Unit Quaternion
 
-`q = [q0, q1, q2, q3, q4]`
+`q = [q0, q1, q2, q3, q4]` is also called a *versor* when its norm is equal to 1.
 
 ### Rotation Vector
 
