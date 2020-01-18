@@ -36,25 +36,27 @@ const attitude = attitude();
 
 ### Euler Angles
 
-[lambda, phi, gamma] in degrees.
+`[lambda, phi, gamma]`, in degrees.
 
 ### Axis-Angle
 
-{ axis: [lon, lat], angle: alpha } in degrees.
+`{ axis: [lon, lat], angle: alpha }`, in degrees.
 
 ### Rotation Matrix
 
+~~~{js}
 [ [r11, r12, r13],
   [r21, r22, r23],
   [r31, r32, r33] ]
+~~~
 
 ### Unit Quaternion
 
-q = [q0, q1, q2, q3, q4]
+`q = [q0, q1, q2, q3, q4]`
 
 ### Rotation Vector
 
-[ x, y, z ] = f(a)B, where *f(a)* is a scalar encoding the angle, and B a unit vector in cartesian coordinates.
+`[ x, y, z ]` = *f(a)B*, where *f(a)* is a scalar encoding the angle, and *B* a unit vector in cartesian coordinates.
 
 *Note:* there are many ways to encode the angle, we have to settle on a default. The useful functions *f(a)* are:
 - *tan(a/4)*: stereographic, ‘Modified Rodrigues Parameters’.
