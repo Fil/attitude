@@ -133,15 +133,15 @@ Sets or reads the *vector* representation of an *attitude*, as a length-3 array.
 
 Defaults to the [stereographic](#attitude_vectorStereographic) vector: f(a) = tan(a/4).
 
-<a name="attitude_vectorStereographic" href="#attitude_vectorStereographic">#</a> *attitude*.<b>vectorStereographic</b>(<i>array</i>, <i>p</i>[, <i>accessor</i>])
+<a name="attitude_vectorStereographic" href="#attitude_vectorStereographic">#</a> *attitude*.<b>vectorStereographic</b>([<i>vector</i>])
 
 *Stereographic* vector: f(a) = tan(a/4). Also called the ‘Modified Rodrigues Parameters’.
 
-<a name="attitude_vectorGnomonic" href="#attitude_vectorGnomonic">#</a> *attitude*.<b>vectorGnomonic</b>(<i>array</i>, <i>p</i>[, <i>accessor</i>])
+<a name="attitude_vectorGnomonic" href="#attitude_vectorGnomonic">#</a> *attitude*.<b>vectorGnomonic</b>([<i>vector</i>])
 
 *Gnomonic* vector: f(a) = tan(a/2). Also called ‘Rodrigues Parameters’ or ‘Gibbs vector’.
 
-<a name="attitude_vectorEquidistant" href="#attitude_vectorEquidistant">#</a> *attitude*.<b>vectorEquidistant</b>(<i>array</i>, <i>p</i>[, <i>accessor</i>])
+<a name="attitude_vectorEquidistant" href="#attitude_vectorEquidistant">#</a> *attitude*.<b>vectorEquidistant</b>([<i>vector</i>])
 
 *Equidistant* vector: f(a) = a. Also called the logarithm vector.
 
