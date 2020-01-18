@@ -31,7 +31,7 @@ const attitude = attitude();
 [Try attitude in your browser.](https://observablehq.com/collection/@fil/attitude)
 
 
-## API Reference
+## Representations
 
 
 ### Euler Angles
@@ -63,6 +63,13 @@ q = [q0, q1, q2, q3, q4]
 - (vector part of the) unit quaternion: Euler angles.
 
 Defaults to the stereographic vector representation.
+
+
+## API Reference
+
+TBD
+
+
 
 
 ---
