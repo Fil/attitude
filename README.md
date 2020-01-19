@@ -122,11 +122,6 @@ Sets or reads the *versor* representation of an *attitude*, as a length-4 array.
 
 Sets or reads the *matrix* representation of an *attitude*, as a matrix of size 3&times;3.
 
-<!--
-<a name="attitude_rotate" href="#attitude_rotate">#</a> *attitude*.<b>rotate</b>(<i>array</i>, <i>p</i>[, <i>accessor</i>])
-*rotate* **TBD**.
--->
-
 <a name="attitude_vector" href="#attitude_vector">#</a> *attitude*.<b>vector</b>([<i>vector</i>])
 
 Sets or reads the *vector* representation of an *attitude*, as a length-3 array. That array can be written f(a)B, where f is a function of the rotation’s angle, and B a unit vector respresenting the axis in cartesian coordinates.

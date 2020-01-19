@@ -248,14 +248,12 @@ tape("versor from axis,angle", t => {
   t.inDelta(
     attitude()
       .axis([0, 90])
-      .angle(10)
-      .rotate([0, 0]),
+      .angle(10)([0, 0]),
     [10, 0]
   );
   t.inDelta(
     attitude()
-      .versor(versor_fromAxisAngle([0, 90], 10))
-      .rotate([0, 0]),
+      .versor(versor_fromAxisAngle([0, 90], 10))([0, 0]),
     [10, 0]
   );
   t.end();

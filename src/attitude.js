@@ -86,9 +86,6 @@ export default function attitude(init = {}) {
           )
         );
 
-  rotate.rotate = _ =>
-    _ === undefined ? versor_toEulerAngles(q) : MatrixRotatePoint(matrix, _);
-
   rotate.angles = _ =>
     _ === undefined
       ? versor_toEulerAngles(q)
