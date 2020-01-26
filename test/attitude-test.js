@@ -490,6 +490,13 @@ tape("vector", t => {
   t.end();
 });
 
+tape("vector zero", t => {
+  const A = attitude().vector([0,0,0]);
+  t.inDelta(A.vector(), [0,0,0]);
+  t.inDelta(A.angles(), [0,0,0]);
+  t.end();
+});
+
 tape("exact sin cos", t => {
   t.deepEqual(attitude({ angle: 90 }).matrix(), [
     [0, 1, 0],

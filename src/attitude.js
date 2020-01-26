@@ -51,11 +51,11 @@ export default function attitude(init = {}) {
     return v.map(d => d * n);
   }
   function set_vector(v, f_1) {
-    const n = sqrt(dot(v, v));
-    set_axis_angle(
-      sphericald(v.map(d => d / n)),
-      f_1(n) * degrees
-    );
+    const n = sqrt(dot(v, v)),
+      axis = n > 0
+        ? sphericald(v.map(d => d / n))
+        : [0, 0];
+    set_axis_angle(axis, f_1(n) * degrees);
     return rotate;
   }
 
