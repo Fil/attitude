@@ -1,8 +1,10 @@
 {
   "name": "attitude",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Spherical Rotations",
-  "keywords": ["rotation"],
+  "keywords": [
+    "rotation"
+  ],
   "license": "MIT",
   "main": "dist/attitude.js",
   "unpkg": "dist/attitude.min.js",
