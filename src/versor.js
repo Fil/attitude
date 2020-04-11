@@ -52,6 +52,10 @@ function versor_fromAxisAngle(axis, angle) {
 
 // Euler 123 eq (297)
 function versor_fromEulerAngles([l, p, g]) {
+
+  // fix south pole
+  if (p + 90 < 1e-9) p = -90 + 1e-9;
+  
   const sl = sinpi(l / 360),
     cl = cospi(l / 360),
     sp = sinpi(p / 360),
@@ -68,11 +72,25 @@ function versor_fromEulerAngles([l, p, g]) {
 
 // eq (290)
 function versor_toEulerAngles([q0, q1, q2, q3]) {
-  return [
-    atan2(2 * q2 * q3 + 2 * q0 * q1, q3 * q3 - q2 * q2 - q1 * q1 + q0 * q0),
-    -asin(2 * q1 * q3 - 2 * q0 * q2),
-    atan2(2 * q1 * q2 + 2 * q0 * q3, -q3 * q3 - q2 * q2 + q1 * q1 + q0 * q0)
-  ].map(d => d * degrees);
+  const a = 2 * q2 * q3 + 2 * q0 * q1,
+    b = q3 * q3 - q1 * q1 + q0 * q0 - q2 * q2,
+    c = 2 * q1 * q3 - 2 * q0 * q2,
+    d = 2 * q1 * q2 + 2 * q0 * q3,
+    e = -q3 * q3 - q2 * q2 + q1 * q1 + q0 * q0,
+    l = atan2(a, b),
+    g = atan2(d, e);
+
+  // fix north pole
+  const eps = 1e-9;
+  if (
+    c < 0 &&
+    ((abs(a) < eps && abs(b) < eps) || (abs(d) < eps && abs(e) < eps))
+  ) {
+    const app = versor_toEulerAngles([q0, q2, q1, q3]);
+    return [app[1] / 2, app[0], -app[1] / 2];
+  }
+
+  return [l * degrees, -asin(c) * degrees, g * degrees];
 }
 
 // https://observablehq.com/@d3/world-tour

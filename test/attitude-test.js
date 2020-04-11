@@ -505,3 +505,30 @@ tape("exact sin cos", t => {
   ]);
   t.end();
 });
+
+
+tape("precision of versor to Euler angles", t => {
+  for (let i = 1; i <= 10; i++){
+    const a = 28 + i / 10000, b = attitude([a, 90, -a]).angles();
+    t.inDelta(b, [a, 90, -a]);
+  }
+  for (let i = 1; i <= 10; i++){
+    const a = 28 + i / 10000, b = attitude([-a, -90, a]).angles();
+    t.inDelta(b, [-a, -90, a], 1e-3);
+  }
+  t.end();
+
+});
+
+tape("precision of Euler angles to versor", t => {
+  for (let i = 1; i <= 10; i++){
+    const a = 28 + i / 10000, b = attitude([a, 90, -a]).angles();
+    t.inDelta(b, [a, 90, -a])
+  }
+  for (let i = 1; i <= 10; i++){
+    const a = 28 + i / 10000, b = attitude([-a, -90, a]).angles();
+    t.inDelta(b, [-a, -90, a], 1e-3)
+  }
+  t.end();
+
+});
