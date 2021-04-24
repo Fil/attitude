@@ -37,8 +37,8 @@ export function cospi(x) {
 export function tanpi(x) {
   // tan(a/2 + pi/4) = tan(a)+sec(a)
   const a = abs(x),
-    s = sign(x),
-    i = a % 1;
+    s = sign(x);
+  let i = a % 1;
   return i > .2
     ? ((sinpi(2 * (i -= .25)) + 1) / cospi(2 * i)) * s
     : tan(pi * i) * s;

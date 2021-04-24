@@ -1,14 +1,12 @@
-var tape = require("tape");
-
-tape.Test.prototype.inDelta = function(actual, expected, delta) {
+export default function(assert, actual, expected, delta) {
   delta = delta || 1e-6;
-  this._assert(inDelta(actual, expected, delta), {
-    message: "should be in delta " + delta,
-    operator: "inDelta",
-    actual: actual,
-    expected: expected
+  assert(inDelta(actual, expected, delta), {
+	message: "should be in delta " + delta,
+	operator: "inDelta",
+	actual,
+	expected
   });
-};
+}
 
 function inDelta(actual, expected, delta) {
   return (Array.isArray(expected) ? inDeltaArray : inDeltaNumber)(actual, expected, delta);
