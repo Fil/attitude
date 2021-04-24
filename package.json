@@ -6,11 +6,11 @@
     "rotation"
   ],
   "license": "MIT",
-  "main": "dist/attitude.js",
+  "type": "module",
+  "main": "src/index.js",
+  "module": "src/index.js",
   "unpkg": "dist/attitude.min.js",
   "jsdelivr": "dist/attitude.min.js",
-  "module": "index",
-  "jsnext:main": "index",
   "homepage": "https://github.com/Fil/attitude",
   "repository": {
     "type": "git",
@@ -21,9 +21,8 @@
     "url": "https://github.com/Fil"
   },
   "scripts": {
-    "pretest": "rollup -c",
-    "test": "tape -r esm 'test/**/*-test.js' && eslint src",
-    "prepublishOnly": "rm -rf dist && yarn test",
+    "test": "mocha 'test/**/*-test.js' && eslint src test",
+    "prepublishOnly": "rm -rf dist && yarn test && rollup -c",
     "postpublish": "git push && git push --tags && zip -j dist/${npm_package_name}.zip -- LICENSE README.md dist/${npm_package_name}.js dist/${npm_package_name}.min.js"
   },
   "dependencies": {},
@@ -31,13 +30,16 @@
   "devDependencies": {
     "d3-geo": "1",
     "eslint": "6",
+    "mocha": "8",
     "eslint-plugin-es5": "1",
     "esm": "3",
     "package-preamble": "0.1",
     "rollup": "2",
     "rollup-plugin-terser": "7",
-    "tape": "4",
     "terser": "^3.8.2",
     "versor": "0.1"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }

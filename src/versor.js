@@ -6,7 +6,6 @@ import {
   degrees,
   hypot,
   pi,
-  radians,
   sqrt
 } from "./math.js";
 import { cospi, sinpi, cartesiand, sphericald } from "./sinpi.js";

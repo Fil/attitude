@@ -1,6 +1,6 @@
 import { versor_normalize } from "./versor.js";
-import { asin, atan2, degrees, radians, sqrt } from "./math.js";
-import { cospi, sinpi, tanpi, cartesiand, sphericald } from "./sinpi.js";
+import { asin, atan2, degrees, sqrt } from "./math.js";
+import { cospi, sinpi, cartesiand, sphericald } from "./sinpi.js";
 
 function transpose([[r11, r12, r13], [r21, r22, r23], [r31, r32, r33]]) {
   return [[r11, r21, r31], [r12, r22, r32], [r13, r23, r33]];
