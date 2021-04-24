@@ -30,9 +30,9 @@
   "devDependencies": {
     "d3-geo": "1",
     "eslint": "6",
-    "mocha": "8",
     "eslint-plugin-es5": "1",
     "esm": "3",
+    "mocha": "8",
     "package-preamble": "0.1",
     "rollup": "2",
     "rollup-plugin-terser": "7",
