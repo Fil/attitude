@@ -18,8 +18,8 @@ import {
 import {default as attitude} from "../src/index.js";
 import {default as versor} from "versor/dist/versor.js";
 
-import inDelta from "./inDelta.js";
-assert.inDelta = function() { return inDelta(assert, ...arguments); }
+import delta from "./inDelta.js";
+const inDelta = function() { return delta(assert, ...arguments); }
 
 const J2000 = [
     [-0.054876, -0.873437, -0.483835],
@@ -30,7 +30,7 @@ const J2000 = [
   j2000_ei = [93.59503429185153, 28.93617294218035, -58.59864545109253];
 
 it("attitude.angle", () => {
-  assert.inDelta(attitude().angle(10)([0, 0]), [10, 0]);
+  inDelta(attitude().angle(10)([0, 0]), [10, 0]);
 });
 
 it("J2000 gives j2000_e", () => {
@@ -75,19 +75,19 @@ it("attitude.angle preserves the axis", () => {
 });
 
 it("attitude.angles()", () => {
-  assert.inDelta(
+  inDelta(
     attitude()
       .versor(versor_fromEulerAngles([100, 2, 1]))
       .angles(),
     [100, 2, 1]
   );
   const a = attitude().angle(100);
-  assert.inDelta(a.angles(), [100, 0, 0]);
+  inDelta(a.angles(), [100, 0, 0]);
 });
 
 it("power(t)", () => {
   const i = attitude().angle(360);
-  assert.inDelta(
+  inDelta(
     [0, 0.2, 0.4, 0.6, 0.8, 1].map(t => [
       i.power(t).angle(),
       i.power(t)([0, 0])
@@ -107,7 +107,7 @@ it("interpolateAttitude(t)", () => {
   const i = attitude()
     .angle(0)
     .interpolateTo(attitude().angle(90));
-  assert.inDelta(
+  inDelta(
     [0, 0.2, 0.4, 0.6, 0.8, 1, 2.1, 4].map(t => i(t)([0, 0])),
     [[0, 0], [18, 0], [36, 0], [54, 0], [72, 0], [90, 0], [-171, 0], [0, 0]],
     1e-5
@@ -115,14 +115,14 @@ it("interpolateAttitude(t)", () => {
 });
 
 it("various tests", () => {
-  assert.inDelta(
+  inDelta(
     attitude()
       .angle(100)
       .angles(),
     [100, 0, 0]
   );
 
-  assert.inDelta(
+  inDelta(
     attitude()
       .angle(36)
       .power(1 / 10)
@@ -130,7 +130,7 @@ it("various tests", () => {
     3.6
   );
 
-  assert.inDelta(
+  inDelta(
     attitude()
       .angle(36)
       .power(10)
@@ -139,23 +139,23 @@ it("various tests", () => {
     36
   );
 
-  assert.inDelta(
+  inDelta(
     RotationMatrix_toEulerAngles(RotationMatrix_fromEulerAngles([0, 2, 4])),
     [0, 2, 4]
   );
 
-  assert.inDelta(versor([0, 90, 0]), [0.7071067811865476, 0, 0.7071067811865475, 0]);
+  inDelta(versor([0, 90, 0]), [0.7071067811865476, 0, 0.7071067811865475, 0]);
 
-  assert.inDelta(versor([0, 0, 90]), [0.7071067811865476, 0, 0, 0.7071067811865475]);
+  inDelta(versor([0, 0, 90]), [0.7071067811865476, 0, 0, 0.7071067811865475]);
 
-  assert.inDelta(
+  inDelta(
     attitude()
       .angles([90, 0, 0])
       .versor(),
     [0.7071067811865476, 0.7071067811865475, 0, 0]
   );
 
-  assert.inDelta(
+  inDelta(
     attitude()
       .angle(10)
       .axis([10, 45])
@@ -168,15 +168,15 @@ it("various tests", () => {
   );
 
   // doesn't change z
-  assert.inDelta(RotationMatrix_fromEulerAngles([1, 0, 0])[2][2], 1);
+  inDelta(RotationMatrix_fromEulerAngles([1, 0, 0])[2][2], 1);
 
   // doesn't change y
-  assert.inDelta(RotationMatrix_fromEulerAngles([0, 1, 0])[1][1], 1);
+  inDelta(RotationMatrix_fromEulerAngles([0, 1, 0])[1][1], 1);
 
   // doesn't change x
-  assert.inDelta(RotationMatrix_fromEulerAngles([0, 0, 1])[0][0], 1);
+  inDelta(RotationMatrix_fromEulerAngles([0, 0, 1])[0][0], 1);
 
-  assert.inDelta(
+  inDelta(
     attitude()
       .versor(versor([1, 2, 3]))
       .matrix(),
@@ -187,7 +187,7 @@ it("various tests", () => {
     ]
   );
 
-  assert.inDelta(
+  inDelta(
     attitude()
       .versor(
         attitude()
@@ -199,12 +199,12 @@ it("various tests", () => {
     [0, 90]
   );
 
-  assert.inDelta(versor_toEulerAngles(versor([0, 0, 1])), [0, 0, 1]);
+  inDelta(versor_toEulerAngles(versor([0, 0, 1])), [0, 0, 1]);
 
 });
 
 it("versor from Euler angles", () => {
-  assert.inDelta(versor_fromEulerAngles([2, 0, 0]), [0.9998477, 0.0174524, 0, 0]);
+  inDelta(versor_fromEulerAngles([2, 0, 0]), [0.9998477, 0.0174524, 0, 0]);
 });
 
 it("versor_toAxisAngle", () => {
@@ -233,17 +233,17 @@ it("Euler angles from RM", () => {
 });
 
 it("versor from axis,angle", () => {
-  assert.inDelta(versor_fromAxisAngle([0, 90], 90), versor([90, 0, 0]));
-  assert.inDelta(versor_fromAxisAngle([0, 0], 90), versor([0, 0, 90]));
-  assert.inDelta(versor_fromAxisAngle([-90, 0], 90), versor([0, 90, 0]));
-  assert.inDelta(versor_fromAxisAngle([0, 90], 10), versor([10, 0, 0]));
-  assert.inDelta(
+  inDelta(versor_fromAxisAngle([0, 90], 90), versor([90, 0, 0]));
+  inDelta(versor_fromAxisAngle([0, 0], 90), versor([0, 0, 90]));
+  inDelta(versor_fromAxisAngle([-90, 0], 90), versor([0, 90, 0]));
+  inDelta(versor_fromAxisAngle([0, 90], 10), versor([10, 0, 0]));
+  inDelta(
     attitude()
       .axis([0, 90])
       .angle(10)([0, 0]),
     [10, 0]
   );
-  assert.inDelta(
+  inDelta(
     attitude()
       .versor(versor_fromAxisAngle([0, 90], 10))([0, 0]),
     [10, 0]
@@ -263,19 +263,19 @@ it(
 );
 
 it("same versors as Mike's versor", () => {
-  assert.inDelta(
+  inDelta(
     versor([90, 0, 0]),
     attitude()
       .angles([90, 0, 0])
       .versor()
   );
-  assert.inDelta(
+  inDelta(
     versor([0, 90, 0]),
     attitude()
       .angles([0, 90, 0])
       .versor()
   );
-  assert.inDelta(
+  inDelta(
     versor([0, 0, 90]),
     attitude()
       .angles([0, 0, 90])
@@ -343,17 +343,17 @@ it("versor.angles inverses versor_fromAngles", () => {
 });
 
 it("test rotations", () => {
-  assert.inDelta(
+  inDelta(
     attitude()
       .axis([0, 90])
       .angle(10)([2, -8]),
     [12, -8]
   );
-  assert.inDelta(attitude().angles([10, 0, 0])([2, -8]), [12, -8]);
+  inDelta(attitude().angles([10, 0, 0])([2, -8]), [12, -8]);
 
   assert.equal(attitude().angle(), 360);
 
-  assert.inDelta(
+  inDelta(
     attitude()
       .angle(1)
       .angles(),
@@ -385,15 +385,15 @@ it("matrix rotate point", () => {
 });
 
 it("axis rotations", () => {
-  assert.inDelta(attitude().angle(45)([0, 1]), [45, 1], 0.1);
-  assert.inDelta(
+  inDelta(attitude().angle(45)([0, 1]), [45, 1], 0.1);
+  inDelta(
     attitude()
       .axis([0, 0])
       .angle(45)([91, 0]),
     [91, 45],
     0.5
   );
-  assert.inDelta(
+  inDelta(
     attitude()
       .axis([-90, 0])
       .angle(45)([1, 0]),
@@ -404,30 +404,30 @@ it("axis rotations", () => {
 });
 
 it("rotation matrix from axis-angle", () => {
-  assert.inDelta(
+  inDelta(
     RotationMatrix_fromAxisAngle([0, 90], 90),
     RotationMatrix_fromEulerAngles([90, 0, 0])
   );
-  assert.inDelta(
+  inDelta(
     RotationMatrix_fromAxisAngle([0, 0], 20),
     RotationMatrix_fromEulerAngles([0, 0, 20])
   );
-  assert.inDelta(
+  inDelta(
     RotationMatrix_fromAxisAngle([-90, 0], 20),
     RotationMatrix_fromEulerAngles([0, 20, 0])
   );
 });
 
 it("attitude <~> geoRotation", () => {
-  assert.inDelta(attitude([1, 2, 3])([0, 0]), d3.geoRotation([1, 2, 3])([0, 0]));
-  assert.inDelta(
+  inDelta(attitude([1, 2, 3])([0, 0]), d3.geoRotation([1, 2, 3])([0, 0]));
+  inDelta(
     attitude([1, 2, 3]).invert([0, 0]),
     d3.geoRotation([1, 2, 3]).invert([0, 0])
   );
 });
 
 it("arc", () => {
-  assert.inDelta(attitude().arc([1, 2], [3, 4])([1, 2]), [3, 4]);
+  inDelta(attitude().arc([1, 2], [3, 4])([1, 2]), [3, 4]);
 });
 
 it("vector", () => {
@@ -435,33 +435,33 @@ it("vector", () => {
     .axis([10, 20])
     .angle(180);
   // default is stereographic: 180° gives a norm=1 vector
-  assert.inDelta(A.vector(), [0.9254165783983233, 0.1631759111665348, 0.34202014332566866]);
+  inDelta(A.vector(), [0.9254165783983233, 0.1631759111665348, 0.34202014332566866]);
 
   // gnomonic: 90° gives a norm=1 vector
-  assert.inDelta(attitude().angle(90).vectorGnomonic(), [0, 0, 1]);
+  inDelta(attitude().angle(90).vectorGnomonic(), [0, 0, 1]);
 
   // equidistant: 90° gives a norm = pi/2 vector
-  assert.inDelta(attitude().angle(90).vectorEquidistant(), [0, 0, pi/2]);
+  inDelta(attitude().angle(90).vectorEquidistant(), [0, 0, pi/2]);
 
-  assert.inDelta(
+  inDelta(
     attitude()
       .vector(A.vector())
       .axis(),
     [10, 20]
   );
-  assert.inDelta(
+  inDelta(
     attitude()
       .vectorEquidistant(A.vectorEquidistant())
       .angle(),
     180
   );
-  assert.inDelta(
+  inDelta(
     attitude()
       .vectorGnomonic(A.vectorGnomonic())
       .axis(),
     [10, 20]
   );
-  assert.inDelta(
+  inDelta(
     attitude()
       .vectorStereographic(A.vectorStereographic())
       .axis(),
@@ -471,8 +471,8 @@ it("vector", () => {
 
 it("vector zero", () => {
   const A = attitude().vector([0,0,0]);
-  assert.inDelta(A.vector(), [0,0,0]);
-  assert.inDelta(A.angles(), [0,0,0]);
+  inDelta(A.vector(), [0,0,0]);
+  inDelta(A.angles(), [0,0,0]);
 });
 
 it("exact sin cos", () => {
@@ -487,21 +487,21 @@ it("exact sin cos", () => {
 it("precision of versor to Euler angles", () => {
   for (let i = 1; i <= 10; i++){
     const a = 28 + i / 10000, b = attitude([a, 90, -a]).angles();
-    assert.inDelta(b, [a, 90, -a]);
+    inDelta(b, [a, 90, -a]);
   }
   for (let i = 1; i <= 10; i++){
     const a = 28 + i / 10000, b = attitude([-a, -90, a]).angles();
-    assert.inDelta(b, [-a, -90, a], 1e-3);
+    inDelta(b, [-a, -90, a], 1e-3);
   }
 });
 
 it("precision of Euler angles to versor", () => {
   for (let i = 1; i <= 10; i++){
     const a = 28 + i / 10000, b = attitude([a, 90, -a]).angles();
-    assert.inDelta(b, [a, 90, -a])
+    inDelta(b, [a, 90, -a])
   }
   for (let i = 1; i <= 10; i++){
     const a = 28 + i / 10000, b = attitude([-a, -90, a]).angles();
-    assert.inDelta(b, [-a, -90, a], 1e-3)
+    inDelta(b, [-a, -90, a], 1e-3)
   }
 });
