@@ -1,6 +1,6 @@
 {
   "name": "attitude",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Spherical Rotations",
   "keywords": [
     "rotation"
@@ -16,6 +16,10 @@
     "type": "git",
     "url": "https://github.com/Fil/attitude.git"
   },
+  "files": [
+    "dist/**/*.js",
+    "src/**/*.js"
+  ],
   "author": {
     "name": "Philippe Rivière",
     "url": "https://github.com/Fil"
