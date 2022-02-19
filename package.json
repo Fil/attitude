@@ -32,8 +32,8 @@
   "dependencies": {},
   "sideEffects": false,
   "devDependencies": {
-    "d3-geo": "1",
-    "eslint": "6",
+    "d3-geo": "3",
+    "eslint": "8",
     "eslint-plugin-es5": "1",
     "esm": "3",
     "mocha": "9",
